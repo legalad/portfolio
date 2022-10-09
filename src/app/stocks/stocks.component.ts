@@ -13,6 +13,6 @@ export class StocksComponent {
   constructor(private accountService: AccountService) { }
 
   buy(stock: any): void{
-
+    this.accountService.purchase(stock);
   }
 }
