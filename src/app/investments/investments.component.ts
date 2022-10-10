@@ -14,7 +14,7 @@ export class InvestmentsComponent implements DoCheck{
   stocks: any = [];
   length: number = 0;
 
-  constructor(private accountService: AccountService) { }
+  constructor(public accountService: AccountService) { }
 
   sell(index: number): void {
     this.accountService.sell(index);

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Stock} from "./stock";
 import { LocalStorageService } from "./local-storage.service";
+import { AlertService } from "./alert.service";
+import { CurrencyPipe } from "@angular/common";
 
 const defaultBalance: number = 10000;
 
@@ -9,7 +11,7 @@ const defaultBalance: number = 10000;
 })
 export class AccountService {
 
-  constructor(private localStorageService: LocalStorageService) {}
+  constructor(private localStorageService: LocalStorageService, private alertService: AlertService, private currencyPipe: CurrencyPipe) {}
 
   private _balance: number = defaultBalance;
   private _value: number = 0;
@@ -46,6 +48,10 @@ export class AccountService {
       this._stocks.push(stock);
       this.calculateValue();
       this.cacheValues();
+      this.alertService.alert(`You bought ${stock.symbol} for` + this.currencyPipe.transform(stock.price, 'USD', true, '2'), 'success');
+    }
+    else {
+      this.alertService.alert(`You have insufficient funds to buy ${stock.symbol}`, 'danger');
     }
   }
 
@@ -57,6 +63,11 @@ export class AccountService {
       this._cost = this.debit(stock.cost, this.cost);
       this.calculateValue();
       this.cacheValues();
+      this.alertService.alert(`You sold ${stock.symbol} for ` + this.currencyPipe.
+      transform(stock.price, 'USD', true, '.2'), 'success');
+    }
+    else {
+      this.alertService.alert(`You do not own the ${stock} stock.`, 'danger'); //zle dodac symbol
     }
   }
 

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable} from "rxjs";
-import 'rxjs/add/operator/do';
 import { HttpEvent, HttpInterceptor, HttpResponse, HttpHandler, HttpRequest }
   from '@angular/common/http';
 import { AccountService } from './account.service';
@@ -15,8 +14,7 @@ export class StocksInterceptor implements HttpInterceptor {
     const request = req.clone();
     request.headers.append('Accept', 'application/json');
     return next.handle(request).pipe(tap(event => {
-      if (event instanceof HttpResponse && event.url === ConfigService.
-      get('api')) {
+      if (event instanceof HttpResponse && event.url === ConfigService.prototype.api) {
         const stocks = event.body as Array<Stock>;
         let  symbols = this.accountService.stocks.map(stock => stock.symbol);
         stocks.forEach(stock => {
