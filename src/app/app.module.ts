@@ -10,6 +10,8 @@ import { TickerComponent } from './ticker/ticker.component';
 import {LocalStorageService} from "./services/local-storage.service";
 import {CurrencyPipe} from "@angular/common";
 import {AccountService} from "./services/account.service";
+import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {StocksInterceptor} from "./services/interceptor.service";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,12 @@ import {AccountService} from "./services/account.service";
   ],
   providers: [ LocalStorageService,
                 CurrencyPipe,
-                AccountService],
+                AccountService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: StocksInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
