@@ -19,6 +19,7 @@ export class AppComponent implements OnInit, OnDestroy{
   title = 'portfolio';
 
   ngOnInit() {
+    this.accountService.init();
     this.load();
     this.interval = setInterval(() => {
       if (this.refresh) {
