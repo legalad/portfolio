@@ -4,6 +4,7 @@ import { StocksService } from './services/stocks.service';
 import { Stock } from "./services/stock";
 import { AlertService } from "./services/alert.service";
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

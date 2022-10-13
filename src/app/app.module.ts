@@ -10,9 +10,11 @@ import { TickerComponent } from './ticker/ticker.component';
 import {LocalStorageService} from "./services/local-storage.service";
 import {CurrencyPipe} from "@angular/common";
 import {AccountService} from "./services/account.service";
-import {HTTP_INTERCEPTORS} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {StocksInterceptor} from "./services/interceptor.service";
 import { AlertService } from "./services/alert.service";
+import {StocksService} from "./services/stocks.service";
+
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { AlertService } from "./services/alert.service";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ClarityModule
+    ClarityModule,
+    HttpClientModule
   ],
   providers: [ LocalStorageService,
                 CurrencyPipe,
